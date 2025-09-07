@@ -3,6 +3,10 @@ import { AddProduct } from '#models/add_product'
 import { UpdateProduct } from '#models/update_product'
 
 export class ProductService {
+  getCompanyProducts(id: number, page: number, perPage: number) {
+    return Product.query().where({ companyId: id }).paginate(page, perPage)
+  }
+
   getProducts(page: number, perPage: number) {
     return Product.query().preload('company').preload('category').paginate(page, perPage)
   }

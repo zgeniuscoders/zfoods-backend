@@ -65,4 +65,9 @@ export default class ProductsController {
     const { id } = params
     await this.productService.deleteProduct(id)
   }
+
+  async getCompanyProducts({ params }: HttpContext) {
+    const { id, page, perPage } = params
+    return await this.productService.getCompanyProducts(id, page, perPage)
+  }
 }

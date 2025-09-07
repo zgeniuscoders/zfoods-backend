@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const OrdersController = () => import('#controllers/Api/orders_controller')
 
 const ProductsController = () => import('#controllers/Api/products_controller')
 const CompaniesController = () => import('#controllers/Api/companies_controller')
@@ -42,6 +43,10 @@ router
           .resource('products', ProductsController)
           .apiOnly()
           .only(['store', 'update', 'destroy'])
+
+        router.resource('orders', OrdersController).apiOnly().except(['index'])
+        router.get('users/:id/orders', [OrdersController, 'getUserOrders'])
+        router.get('companies/:id/orders', [OrdersController, 'getCompanyOrders'])
       })
       .use(middleware.auth())
   })

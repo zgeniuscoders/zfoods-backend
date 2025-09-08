@@ -4,7 +4,12 @@ import { UpdateOrder } from '#models/update_order'
 
 export class OrderService {
   async getUserOrders(userId: number, page: number, perPage: number) {
-    return Order.query().preload('product').where({ userId: userId }).paginate(page, perPage)
+    return Order.query()
+      .preload('items', (query) => {
+        query.preload('product')
+      })
+      .where({ userId: userId })
+      .paginate(page, perPage)
   }
 
   async getCompanyOrders(companyId: number, page: number, perPage: number) {

@@ -26,10 +26,26 @@ export default class OrdersController {
    */
   async store({ request }: HttpContext) {
     const data = await request.validateUsing(addOrderValidator)
-    await this.orderService.addOrder({
-      ...data,
+
+    let totalPrice = data.items
+      .map((item) => item.quantity * item.price)
+      .reduce((acc, current) => acc + current, 0)
+
+    const order = await this.orderService.addOrder({
+      companyId: data.companyId,
+      userId: data.userId,
+      totalPrice: totalPrice,
       status: OrderStatusEnum.PADDING,
     })
+
+    for (let item of data.items) {
+      await this.orderService.addOrderItem({
+        orderId: order.id,
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price,
+      })
+    }
   }
 
   /**

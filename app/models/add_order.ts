@@ -1,7 +1,5 @@
 export interface AddOrder {
-  productId: number
   userId: number
-  quantity: number
-  price: number
+  totalPrice: number
   status: string
 }

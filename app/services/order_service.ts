@@ -17,7 +17,12 @@ export class OrderService {
   }
 
   async getOrder(id: number) {
-    return await Order.query().preload('product').where({ id: id }).firstOrFail()
+    return await Order.query()
+      .preload('items', (query) => {
+        query.preload('product')
+      })
+      .where({ id: id })
+      .firstOrFail()
   }
 
   async addOrder(data: AddOrder) {

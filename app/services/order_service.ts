@@ -8,11 +8,7 @@ export class OrderService {
   }
 
   async getCompanyOrders(companyId: number, page: number, perPage: number) {
-    return Order.query()
-      .preload('product', (query) => {
-        query.where({ companyId: companyId })
-      })
-      .paginate(page, perPage)
+    return Order.query().where({ companyId: companyId }).paginate(page, perPage)
   }
 
   async getOrder(id: number) {

@@ -3,11 +3,15 @@ import { OrderStatusEnum } from '../enum/OrderStatusEnum.js'
 
 export const addOrderValidator = vine.compile(
   vine.object({
-    productId: vine.number().exists({ table: 'products', column: 'id' }),
     companyId: vine.number().exists({ table: 'companies', column: 'id' }),
     userId: vine.number().exists({ table: 'users', column: 'id' }),
-    price: vine.number(),
-    quantity: vine.number(),
+    items: vine.array(
+      vine.object({
+        productId: vine.number().exists({ table: 'products', column: 'id' }),
+        price: vine.number(),
+        quantity: vine.number(),
+      })
+    ),
   })
 )
 

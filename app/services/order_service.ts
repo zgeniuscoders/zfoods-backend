@@ -1,6 +1,8 @@
 import Order from '#models/order'
 import { AddOrder } from '#models/add_order'
 import { UpdateOrder } from '#models/update_order'
+import { AddOrderItem } from '#models/add_order_item'
+import OrderItem from '#models/order_item'
 
 export class OrderService {
   async getUserOrders(userId: number, page: number, perPage: number) {
@@ -27,6 +29,10 @@ export class OrderService {
 
   async addOrder(data: AddOrder) {
     await Order.create(data)
+  }
+
+  async addOrderItem(data: AddOrderItem) {
+    await OrderItem.create(data)
   }
 
   async updateOrder(id: number, data: UpdateOrder) {

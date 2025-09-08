@@ -28,7 +28,7 @@ export class OrderService {
   }
 
   async addOrder(data: AddOrder) {
-    await Order.create(data)
+    return await Order.create(data)
   }
 
   async addOrderItem(data: AddOrderItem) {

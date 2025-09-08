@@ -1,4 +1,6 @@
 import Category from '#models/category'
+import { AddCategory } from '#models/add_category'
+import { UpdateCategory } from '#models/update_category'
 
 export class CategoryService {
   // Your code here
@@ -11,12 +13,12 @@ export class CategoryService {
     return await Category.query().preload('products').where('id', id).firstOrFail()
   }
 
-  async addCategory(data: { name: string; photo: string }) {
+  async addCategory(data: AddCategory) {
     await Category.create(data)
   }
 
-  async updateCategory(id: number, data: { name: string; photo: string }) {
-    Category.query().where({ id: id }).update(data)
+  async updateCategory(id: number, data: UpdateCategory) {
+    await Category.query().where({ id: id }).update(data)
   }
 
   async deleteCategory(id: number) {

@@ -19,7 +19,7 @@ export default class Order extends BaseModel {
   declare status: string
 
   @column()
-  declare price: number
+  declare totalPrice: number
 
   @belongsTo(() => User)
   declare user: relations.BelongsTo<typeof User>

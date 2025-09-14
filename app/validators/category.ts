@@ -4,7 +4,7 @@ export const addCategoryValidator = vine.compile(
   vine.object({
     name: vine.string(),
     photo: vine.file({
-      extnames: ['jpg', 'png', 'jpeg'],
+      extnames: ['jpg', 'png', 'jpeg','webp'],
       size: '10mb',
     }),
   })

@@ -8,7 +8,7 @@ export const addProductValidator = vine.compile(
     categoryId: vine.number().exists({ table: 'categories', column: 'id' }),
     companyId: vine.number().exists({ table: 'companies', column: 'id' }),
     photo: vine.file({
-      extnames: ['jpg', 'png', 'jpeg'],
+      extnames: ['jpg', 'png', 'jpeg', 'webp'],
       size: '10mb',
     }),
   })

@@ -11,6 +11,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import { normalize, sep } from 'path'
 import app from '@adonisjs/core/services/app'
+import UserController from '#controllers/Api/user_controller'
 const OrdersController = () => import('#controllers/Api/orders_controller')
 
 const ProductsController = () => import('#controllers/Api/products_controller')
@@ -49,6 +50,12 @@ router
         router.resource('orders', OrdersController).apiOnly().except(['index'])
         router.get('users/:id/orders', [OrdersController, 'getUserOrders'])
         router.get('companies/:id/orders', [OrdersController, 'getCompanyOrders'])
+
+        router.get('me', [UserController, 'getCurrentUser'])
+        router.get('users/:id', [UserController, 'show'])
+        router.put('users/:id', [UserController, 'update'])
+        router.delete('users/:id', [UserController, 'destroy'])
+
       })
       .use(middleware.auth())
   })
